@@ -35490,18 +35490,16 @@ function getDateParts() {
 }
 
 async function execGetOutput(command) {
-    let collectedOutput = [];
-    let collectedErrorOutput = [];
+    let collectedOutput = ''
+    let collectedErrorOutput = '';
 
     const options = {
         listeners: {
             stdout: (data) => {
-                const output = data.toString().split('\n');
-                collectedOutput = collectedOutput.concat(output);
+                collectedOutput += data.toString();
             },
             stderr: (data) => {
-                const output = data.toString().split('\n');
-                collectedErrorOutput = collectedErrorOutput.concat(output);
+                collectedErrorOutput += data.toString();
             },
         },
     };
@@ -35512,7 +35510,8 @@ async function execGetOutput(command) {
         throw new Error(collectedErrorOutput);
     }
 
-    return collectedOutput;
+    const output = collectedOutput.split('\n');
+    return output;
 }
 
 })();
