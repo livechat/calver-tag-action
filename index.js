@@ -71,6 +71,8 @@ async function getNextVersionTag(prefix, prerelease) {
     const allTags = await execGetOutput('git tag');
 
     const previousVersionTags = allTags
+        .filter(tag => tag.startsWith(prefix))
+        .map(tag => tag.replace(prefix, ''))
         .map(processVersion)
         .filter(Boolean)
         .sort((a, b) => a.localeCompare(b));
