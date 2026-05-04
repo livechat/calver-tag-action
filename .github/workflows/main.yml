@@ -1,5 +1,7 @@
 on: [push]
 
+permissions: read-all
+
 jobs:
   tag_release:
     runs-on: ubuntu-latest
